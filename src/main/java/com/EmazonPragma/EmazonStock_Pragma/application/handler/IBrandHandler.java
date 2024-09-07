@@ -9,6 +9,6 @@ public interface IBrandHandler {
 
     BrandResponse saveBrand(BrandRequest brandRequest);
 
-    List<BrandResponse> listBrands();
+//    List<BrandResponse> listBrands();
 
 }

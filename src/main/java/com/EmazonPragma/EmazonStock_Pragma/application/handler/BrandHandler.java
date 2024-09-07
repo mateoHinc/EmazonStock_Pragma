@@ -25,8 +25,8 @@ public class BrandHandler implements IBrandHandler {
         return brandResponseMapper.toResponse(brandServicePort.saveBrand(brandRequestMapper.toBrand(brandRequest)));
     }
 
-    @Override
-    public List<BrandResponse> listBrands() {
-        return List.of();
-    }
+//    @Override
+//    public List<BrandResponse> listBrands() {
+//        return List.of();
+//    }
 }
