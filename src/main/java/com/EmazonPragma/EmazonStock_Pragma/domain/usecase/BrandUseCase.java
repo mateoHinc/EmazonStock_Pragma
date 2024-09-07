@@ -20,7 +20,8 @@ public class BrandUseCase implements IBrandServicePort {
     }
 
     @Override
-    public List<Brand> listBrands() {
-        return List.of();
+    public List<Brand> listBrands(String sortBy, boolean ascending, int page, int size) {
+        return brandPersistencePort.listBrands(sortBy,ascending,page,size);
     }
+
 }
