@@ -38,4 +38,9 @@ public class BrandJpaAdapter implements IBrandPersistencePort {
         return brandEntityMapper.toBrandList(brandEntities);
     }
 
+    @Override
+    public Brand getBrand(Long id) {
+        return brandEntityMapper.toBrand(brandRepository.getById(id));
+    }
+
 }

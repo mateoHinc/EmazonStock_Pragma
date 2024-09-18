@@ -5,6 +5,7 @@ import com.EmazonPragma.EmazonStock_Pragma.application.DTO.BrandResponse;
 import com.EmazonPragma.EmazonStock_Pragma.application.mapper.BrandRequestMapper;
 import com.EmazonPragma.EmazonStock_Pragma.application.mapper.BrandResponseMapper;
 import com.EmazonPragma.EmazonStock_Pragma.domain.api.IBrandServicePort;
+import com.EmazonPragma.EmazonStock_Pragma.domain.model.Brand;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,11 @@ public class BrandHandler implements IBrandHandler {
     @Override
     public List<BrandResponse> listBrands(String sortBy, boolean ascending, int page, int size) {
         return brandResponseMapper.toReponseList(brandServicePort.listBrands(sortBy,ascending,page,size));
+    }
+
+    @Override
+    public Brand getBrand(Long id) {
+        return brandServicePort.getBrand(id);
     }
 
 }

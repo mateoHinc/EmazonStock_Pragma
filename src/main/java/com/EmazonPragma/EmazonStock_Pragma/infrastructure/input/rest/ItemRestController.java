@@ -24,8 +24,9 @@ public class ItemRestController {
 
     @Operation(summary = "Añadir a new item")
     @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "Item created", content = @Content)})
-    @PostMapping
+    @PostMapping("/new")
     public ResponseEntity<ItemResponse> saveItem(@RequestBody ItemRequest itemRequest){
-        return ResponseEntity.status(HttpStatus.CREATED).body(itemHandler.saveItem(itemRequest));
+        itemHandler.saveItem(itemRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

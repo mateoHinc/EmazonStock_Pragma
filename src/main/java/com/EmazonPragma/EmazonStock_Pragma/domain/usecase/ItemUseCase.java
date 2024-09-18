@@ -6,7 +6,7 @@ import com.EmazonPragma.EmazonStock_Pragma.domain.spi.IItemPersistencePort;
 
 public class ItemUseCase implements IItemServicePort {
 
-    private IItemPersistencePort itemPersistencePort;
+    private final IItemPersistencePort itemPersistencePort;
 
     public ItemUseCase(IItemPersistencePort itemPersistencePort) {
         this.itemPersistencePort = itemPersistencePort;

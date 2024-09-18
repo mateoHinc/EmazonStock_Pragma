@@ -23,4 +23,9 @@ public class CategoryUseCase implements ICategoryServicePort {
     public List<Category> listCategories(String sortBy, boolean ascending, int page, int size) {
         return categoryPersistencePort.listCategories(sortBy,ascending,page,size);
     }
+
+    @Override
+    public Category getCategory(Long id) {
+        return categoryPersistencePort.getCategory(id);
+    }
 }

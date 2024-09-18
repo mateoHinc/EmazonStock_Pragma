@@ -24,4 +24,9 @@ public class BrandUseCase implements IBrandServicePort {
         return brandPersistencePort.listBrands(sortBy,ascending,page,size);
     }
 
+    @Override
+    public Brand getBrand(Long id) {
+        return brandPersistencePort.getBrand(id);
+    }
+
 }
