@@ -11,8 +11,6 @@ import org.mapstruct.ReportingPolicy;
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface ItemRequestMapper {
 
-    @Mapping(source = "itemRequest.category.id", target = "idCategory")
-    @Mapping(source = "itemRequest.brand.id", target = "idBrand")
     Item toItem(ItemRequest itemRequest);
 
 }

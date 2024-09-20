@@ -5,6 +5,6 @@ import com.EmazonPragma.EmazonStock_Pragma.application.DTO.ItemResponse;
 
 public interface IItemHandler {
 
-    ItemResponse saveItem(ItemRequest itemRequest);
+    void saveItem(ItemRequest itemRequest);
 
 }

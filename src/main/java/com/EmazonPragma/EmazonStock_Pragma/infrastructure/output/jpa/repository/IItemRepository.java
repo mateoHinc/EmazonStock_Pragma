@@ -4,4 +4,5 @@ import com.EmazonPragma.EmazonStock_Pragma.infrastructure.output.jpa.entity.Item
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IItemRepository extends JpaRepository<ItemEntity, Long> {
+    boolean existsByName(String name);
 }

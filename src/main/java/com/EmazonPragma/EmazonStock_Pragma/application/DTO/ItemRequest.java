@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class ItemRequest {
@@ -26,7 +28,7 @@ public class ItemRequest {
     @Positive(message = "El precio debe ser positivo")
     private double price;
 
-    private Category category;
+    private List<Category> category;
 
-    private Brand brand;
+    private Long brand;
 }

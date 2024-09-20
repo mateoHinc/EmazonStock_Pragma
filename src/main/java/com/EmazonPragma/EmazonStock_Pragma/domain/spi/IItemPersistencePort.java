@@ -4,6 +4,7 @@ import com.EmazonPragma.EmazonStock_Pragma.domain.model.Item;
 
 public interface IItemPersistencePort {
 
-    Item saveItem(Item item);
+    void saveItem(Item item);
+    boolean existByName(String name);
 
 }

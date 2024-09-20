@@ -15,13 +15,14 @@ public class ItemJpaAdapter implements IItemPersistencePort {
 
     private final IItemRepository itemRepository;
     private final ItemEntityMapper itemEntityMapper;
-    private final IBrandRepository brandRepository;
-    private final BrandEntityMapper brandEntityMapper;
-    private final ICategoryRepository categoryRepository;
-    private final CategoryEntityMapper categoryEntityMapper;
 
     @Override
-    public Item saveItem(Item item) {
-        return itemEntityMapper.toItem(itemRepository.save(itemEntityMapper.toEntity(item)));
+    public void saveItem(Item item) {
+        itemRepository.save(itemEntityMapper.toEntity(item));
+    }
+
+    @Override
+    public boolean existByName(String name) {
+        return itemRepository.existsByName(name);
     }
 }

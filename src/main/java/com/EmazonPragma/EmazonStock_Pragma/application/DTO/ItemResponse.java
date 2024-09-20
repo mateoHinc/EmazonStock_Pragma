@@ -1,7 +1,10 @@
 package com.EmazonPragma.EmazonStock_Pragma.application.DTO;
 
+import com.EmazonPragma.EmazonStock_Pragma.domain.model.Category;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,7 +15,7 @@ public class ItemResponse {
     private String description;
     private int amount;
     private double price;
-    private CategoryResponse category;
-    private BrandResponse brand;
+    private List<Category> category;
+    private Long brand;
 
 }

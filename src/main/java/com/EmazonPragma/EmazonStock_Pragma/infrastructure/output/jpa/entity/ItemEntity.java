@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,8 +22,14 @@ public class ItemEntity {
     private String description;
     private int amount;
     private double price;
-    @JoinColumn(name = "idCategory")
-    private Long idCategory;
-    @JoinColumn(name = "idBrand")
-    private Long idBrand;
+    @ManyToMany
+    @JoinTable(
+            name = "itemCategory",
+            joinColumns = @JoinColumn(name = "idItem"),
+            inverseJoinColumns = @JoinColumn(name = "idCategory")
+    )
+    private List<CategoryEntity> category;
+    @ManyToOne
+    @JoinColumn(name = "idBrand", nullable = false)
+    private BrandEntity idBrand;
 }
