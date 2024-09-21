@@ -18,5 +18,4 @@ public class Item {
     private int amount;
     private double price;
     private List<Category> category;
-    private Long idBrand;
 }

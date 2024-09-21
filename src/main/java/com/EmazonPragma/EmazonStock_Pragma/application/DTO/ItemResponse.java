@@ -16,6 +16,5 @@ public class ItemResponse {
     private int amount;
     private double price;
     private List<Category> category;
-    private Long brand;
 
 }

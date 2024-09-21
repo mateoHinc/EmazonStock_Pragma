@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,8 +29,6 @@ public class ItemEntity {
             joinColumns = @JoinColumn(name = "idItem"),
             inverseJoinColumns = @JoinColumn(name = "idCategory")
     )
-    private List<CategoryEntity> category;
-    @ManyToOne
-    @JoinColumn(name = "idBrand", nullable = false)
-    private BrandEntity idBrand;
+    private Set<CategoryEntity> category = new HashSet<>();
+
 }

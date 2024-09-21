@@ -4,7 +4,9 @@ import com.EmazonPragma.EmazonStock_Pragma.domain.api.IItemServicePort;
 import com.EmazonPragma.EmazonStock_Pragma.domain.model.Category;
 import com.EmazonPragma.EmazonStock_Pragma.domain.model.Item;
 import com.EmazonPragma.EmazonStock_Pragma.domain.spi.IItemPersistencePort;
+import com.EmazonPragma.EmazonStock_Pragma.infrastructure.exceptions.DuplicateCategoriesException;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,21 +21,15 @@ public class ItemUseCase implements IItemServicePort {
 
     @Override
     public void saveItem(Item item) {
+        Set<Long> uniqueCategoryIds = new HashSet<>();
 
-        validateCategory(item.getCategory());
+        for (Category category : item.getCategory()) {
+            if(!uniqueCategoryIds.add(category.getId())) {
+                throw new DuplicateCategoriesException("No puede tener categorias duplicadas en el articulo");
+            }
+        }
 
         itemPersistencePort.saveItem(item);
     }
 
-    private void validateCategory(List<Category> category) {
-        if(category == null || category.isEmpty() || category.size() > 3){
-            throw new IllegalArgumentException("El artículo debe tener entre 1 y 3 categorías.");
-        }
-
-        Set<Long> categoryIds = category.stream().map(Category::getId).collect(Collectors.toSet());
-
-        if(categoryIds.size() != category.size()) {
-            throw new IllegalArgumentException("Las categorías no pueden estar repetidas.");
-        }
-    }
 }

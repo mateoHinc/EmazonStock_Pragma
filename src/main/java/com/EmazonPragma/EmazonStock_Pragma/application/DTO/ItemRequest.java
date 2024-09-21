@@ -28,7 +28,5 @@ public class ItemRequest {
     @Positive(message = "El precio debe ser positivo")
     private double price;
 
-    private List<Category> category;
-
-    private Long brand;
+    private List<Long> category;
 }
