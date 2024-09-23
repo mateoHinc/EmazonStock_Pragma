@@ -5,14 +5,17 @@ import com.EmazonPragma.EmazonStock_Pragma.domain.model.Item;
 import com.EmazonPragma.EmazonStock_Pragma.domain.spi.IItemPersistencePort;
 import com.EmazonPragma.EmazonStock_Pragma.infrastructure.exceptions.CategoryNotFoundException;
 import com.EmazonPragma.EmazonStock_Pragma.infrastructure.exceptions.ItemAlreadyExistsException;
+import com.EmazonPragma.EmazonStock_Pragma.infrastructure.exceptions.NotDataFound;
 import com.EmazonPragma.EmazonStock_Pragma.infrastructure.output.jpa.entity.CategoryEntity;
-import com.EmazonPragma.EmazonStock_Pragma.infrastructure.output.jpa.mapper.BrandEntityMapper;
+import com.EmazonPragma.EmazonStock_Pragma.infrastructure.output.jpa.entity.ItemEntity;
 import com.EmazonPragma.EmazonStock_Pragma.infrastructure.output.jpa.mapper.CategoryEntityMapper;
 import com.EmazonPragma.EmazonStock_Pragma.infrastructure.output.jpa.mapper.ItemEntityMapper;
-import com.EmazonPragma.EmazonStock_Pragma.infrastructure.output.jpa.repository.IBrandRepository;
 import com.EmazonPragma.EmazonStock_Pragma.infrastructure.output.jpa.repository.ICategoryRepository;
 import com.EmazonPragma.EmazonStock_Pragma.infrastructure.output.jpa.repository.IItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Set;
@@ -34,6 +37,22 @@ public class ItemJpaAdapter implements IItemPersistencePort {
             completeCategories(item);
             itemRepository.save(itemEntityMapper.toEntity(item));
         }
+    }
+
+    @Override
+    public List<Item> listItems(String sortBy, boolean ascending, int page, int size) {
+        Sort sort = Sort.by(Sort.Direction.fromString(ascending ? "ASC" : "DESC"), sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+        List<ItemEntity> itemEntityList = itemRepository.findAll(pageable).getContent();
+        if(itemEntityList.isEmpty()){
+            throw new NotDataFound();
+        }
+        return itemEntityMapper.toItemList(itemEntityList);
+    }
+
+    @Override
+    public Item getItem(Long id) {
+        return itemEntityMapper.toItem(itemRepository.getById(id));
     }
 
     @Override

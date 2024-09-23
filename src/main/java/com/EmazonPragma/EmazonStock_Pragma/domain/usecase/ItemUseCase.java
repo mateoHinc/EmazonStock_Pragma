@@ -32,4 +32,14 @@ public class ItemUseCase implements IItemServicePort {
         itemPersistencePort.saveItem(item);
     }
 
+    @Override
+    public List<Item> listItems(String sortBy, boolean ascending, int page, int size) {
+        return itemPersistencePort.listItems(sortBy, ascending, page, size);
+    }
+
+    @Override
+    public Item getItem(Long id) {
+        return itemPersistencePort.getItem(id);
+    }
+
 }
