@@ -21,6 +21,11 @@ import com.EmazonPragma.EmazonStock_Pragma.infrastructure.output.jpa.repository.
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @RequiredArgsConstructor
@@ -32,6 +37,7 @@ public class BeanConfiguration {
     private final BrandEntityMapper brandEntityMapper;
     private final IItemRepository itemRepository;
     private final ItemEntityMapper itemEntityMapper;
+    private final UserDetailsService userDetailsService;
 
     @Bean
     public ICategoryPersistencePort categoryPersistencePort() {
@@ -61,5 +67,17 @@ public class BeanConfiguration {
     @Bean
     public IItemServicePort itemServicePort() {
         return new ItemUseCase(itemPersistencePort());
+    }
+
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
+
+    @Bean
+    AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+        return daoAuthenticationProvider;
     }
 }
